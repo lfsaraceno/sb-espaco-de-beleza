@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="70 60 420 380">
+        <g id="lirio" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+          <path class="petala" d="M268,270 C230,235 195,190 197,130 C198,95 205,78 213,80 C240,88 280,125 295,170 C300,190 300,205 298,215"/>
+          <path class="petala" d="M302,210 C305,170 330,130 368,112 C380,108 378,150 372,180 C365,215 345,240 318,262"/>
+          <path class="petala" d="M262,282 C245,245 210,215 160,205 C130,200 100,215 90,232 C110,238 150,250 180,280 C195,295 210,302 222,300"/>
+          <path class="petala" d="M110,238 C150,245 185,270 210,298"/>
+          <path class="petala" d="M300,265 C330,240 385,225 425,238 C450,247 465,270 468,288 C440,272 405,268 378,282 C365,288 358,295 352,300"/>
+          <path class="petala" d="M332,312 C300,292 255,278 228,282 C212,286 208,320 212,350 C215,380 222,400 232,412 C255,392 280,360 300,330 C310,318 320,312 332,312"/>
+          <path class="petala" d="M315,300 C340,292 370,295 380,315 C386,335 380,355 372,368 C360,350 340,335 318,326"/>
+          <path class="estame" d="M285,288 C280,250 276,215 274,196"/>
+          <path class="estame" d="M292,288 C300,240 314,200 327,179"/>
+          <path class="estame" d="M282,290 C272,262 264,242 260,228"/>
+          <path class="estame" d="M296,288 C305,262 314,242 321,228"/>
+          <path class="estame" d="M289,289 C290,262 292,240 295,222"/>
+          <g class="antera" fill="currentColor" stroke="none">
+            <ellipse cx="272" cy="187" rx="6" ry="10" transform="rotate(-15 272 187)"/>
+            <ellipse cx="331" cy="171" rx="6" ry="10" transform="rotate(35 331 171)"/>
+            <ellipse cx="258" cy="219" rx="5" ry="8" transform="rotate(-20 258 219)"/>
+            <ellipse cx="324" cy="219" rx="5" ry="8" transform="rotate(30 324 219)"/>
+          </g>
+        </g>
+</svg>
