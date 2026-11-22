@@ -58,6 +58,14 @@ test('marca: title com "SB Espaço de Beleza" e "Belíssima" só como antigo nom
   usos.forEach((u) => assert.match(u, /antigo Espaço Belíssima/, u));
 });
 
+test('sem JS: styles.css só esconde conteúdo sob .js', () => {
+  const css = readFileSync(new URL('../styles.css', import.meta.url), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+  const rules = [...css.matchAll(/([^{}]+)\{([^}]*)\}/g)];
+  const hiding = rules.filter(([, , body]) => /opacity:\s*0[;\s]|visibility:\s*hidden|clip-path:\s*circle\(0/.test(body + ';'));
+  hiding.forEach(([, sel]) => sel.split(',').forEach((s) =>
+    assert.match(s.trim(), /^\.js |^\.is-3d |::before$/, `esconde sem JS: ${s.trim()}`)));
+});
+
 test('links externos: todo target=_blank tem rel="noopener"', () => {
   const blanks = [...html.matchAll(/<a [^>]*target="_blank"[^>]*>/g)].map((m) => m[0]);
   assert.ok(blanks.length >= 11);
