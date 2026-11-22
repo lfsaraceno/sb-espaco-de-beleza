@@ -96,9 +96,14 @@ export function start(canvas, svgGroup) {
         gl_FragColor = vec4(uColor, a * a * vAlpha);
       }`,
   });
-  const group = new Group();
+  // lírio segue a marca; a poeira fica no lugar, espalhada pela abertura toda
+  const dustGeo = geo.clone();
+  geo.setDrawRange(0, count - dust);
+  dustGeo.setDrawRange(count - dust, dust);
+  const group = new Group(), dustGroup = new Group();
   group.add(new Points(geo, mat));
-  scene.add(group);
+  dustGroup.add(new Points(dustGeo, mat));
+  scene.add(group, dustGroup);
 
   // mouse inclina o lírio; em tela de toque, só o balanço automático
   const mouse = { x: 0, y: 0 };
@@ -111,8 +116,17 @@ export function start(canvas, svgGroup) {
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
-    group.position.y = 0.42; // alinha com o lugar do lírio em SVG
-    group.scale.setScalar(Math.min(1, (w / h) / 0.9));
+  };
+  // o lírio 3D ocupa o lugar do <svg> (escondido): se a marca se move, ele vai junto
+  const viewH = 2 * camera.position.z * Math.tan((camera.fov * Math.PI) / 360); // altura visível em z=0
+  const anchor = svgGroup.ownerSVGElement;
+  const follow = () => {
+    const c = canvas.getBoundingClientRect(), r = anchor.getBoundingClientRect();
+    if (!c.height || !r.height) return;
+    const nx = ((r.left + r.width / 2 - c.left) / c.width) * 2 - 1;
+    const ny = 1 - ((r.top + r.height / 2 - c.top) / c.height) * 2;
+    group.position.set((nx * viewH * camera.aspect) / 2, (ny * viewH) / 2, 0);
+    group.scale.setScalar((r.height / c.height) * viewH / (380 / SCALE)); // 380 = altura do viewBox
   };
   addEventListener('resize', resize);
   resize();
@@ -126,8 +140,10 @@ export function start(canvas, svgGroup) {
     if (!onScreen || document.hidden) return;
     const t = (performance.now() - t0) / 1000;
     uniforms.uTime.value = t;
+    follow();
     group.rotation.y += (mouse.x * 0.5 + Math.sin(t * 0.3) * 0.12 - group.rotation.y) * 0.05;
     group.rotation.x += (mouse.y * 0.25 - group.rotation.x) * 0.05;
+    dustGroup.rotation.copy(group.rotation);
     renderer.render(scene, camera);
   });
 
@@ -138,7 +154,7 @@ export function start(canvas, svgGroup) {
       io.disconnect();
       removeEventListener('pointermove', onMove);
       removeEventListener('resize', resize);
-      geo.dispose(); mat.dispose(); renderer.dispose();
+      geo.dispose(); dustGeo.dispose(); mat.dispose(); renderer.dispose();
     },
   };
 }

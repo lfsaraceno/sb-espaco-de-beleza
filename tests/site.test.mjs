@@ -82,3 +82,40 @@ test('links externos: todo target=_blank tem rel="noopener"', () => {
   assert.ok(blanks.length >= 11);
   blanks.forEach((a) => assert.match(a, /rel="[^"]*noopener/, a));
 });
+
+const existe = (p) => { try { readFileSync(new URL(`../${p}`, import.meta.url)); return true; } catch { return false; } };
+
+test('trabalhos: carrossel com 10 a 12 fotos locais, com alt e legenda', () => {
+  const slides = [...html.matchAll(/<li class="slide">([\s\S]*?)<\/li>/g)].map((m) => m[1]);
+  assert.ok(slides.length >= 10 && slides.length <= 12, `slides: ${slides.length}`);
+  slides.forEach((s) => {
+    const src = s.match(/<img src="([^"]+)"/)[1];
+    assert.ok(existe(src), `falta ${src}`);
+    assert.match(s, /alt="[^"]{8,}"/, src);
+    assert.match(s, /<figcaption>[\s\S]*Unidade (Cocó|Maraponga|Passaré|Guararapes|Sul)/, src);
+  });
+});
+
+test('unidades: cada linha tem foto da fachada que existe', () => {
+  rows.forEach(([, nome, corpo]) => {
+    const src = corpo.match(/<img class="foto" src="([^"]+)"/)?.[1];
+    assert.ok(src && existe(src), `${nome}: ${src}`);
+  });
+});
+
+test('abertura: CTA leva às unidades', () => {
+  const texto = html.match(/<div class="hero-texto">([\s\S]*?)<\/div>\s*<\/div>/)[1];
+  assert.match(texto, /<a class="botao" href="#unidades">/);
+});
+
+test('links internos: todo href="#x" aponta para um id que existe', () => {
+  const ids = new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
+  [...html.matchAll(/href="#([^"]+)"/g)].forEach(([, id]) => assert.ok(ids.has(id), `#${id}`));
+});
+
+test('trabalhos: cada card leva ao próprio post do Instagram', () => {
+  const links = [...html.matchAll(/<li class="slide"><a class="post" href="([^"]+)" target="_blank" rel="noopener">/g)].map((m) => m[1]);
+  assert.equal(links.length, 12);
+  links.forEach((u) => assert.match(u, /^https:\/\/www\.instagram\.com\/p\/[\w-]+\/$/));
+  assert.equal(new Set(links).size, 12, 'posts repetidos');
+});

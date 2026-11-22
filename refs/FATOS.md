@@ -44,3 +44,26 @@ Só o que está escrito nas fontes. Nada aqui é dedução, exceto onde marcado.
 ## Citações usadas no site (precisam de autorização da cliente)
 - "Chegar aos 20 anos de história não é sobre olhar no espelho e ver o tempo passar, é sobre olhar para trás e ver quantas vidas e sorrisos conseguimos transformar." — legenda do reel dos 20 anos (https://www.instagram.com/reel/DeH6CSjA4RK)
 - "Nós não mudamos porque algo acabou. Nós mudamos porque crescemos!" — legenda do post "Mudamos!" de 06/10/2026 (https://www.instagram.com/p/DeKIdZHFYP2/)
+
+## Serviços (letreiro da fachada Maraponga, foto do linkbio)
+- Cabelo Feminino e Masculino, Colorimetria, Tratamentos Capilares, Manicure, Depilação, Estética, Maquiagem, Sobrancelhas e Cílios.
+
+## Fotos usadas no site (coletadas em 2026-11-22)
+- `assets/img/unidades/*.jpg`: fotos das fachadas publicadas no linkbio (linkbio.co/BiositeSB), uma por unidade, já com a marca SB.
+- `assets/img/procedimentos/*.jpg`: posts do Instagram @sbespacodebeleza. Título e unidade de cada foto vêm da legenda do post:
+  - 01 DgBl0fclSZl: "Aquele ruivo cheio de personalidade" (#ruivoacobreado), Unidade Sul
+  - 02 DgAtsV4lVS_: "O glamour que combina com o seu final de ano!" (nail designer), Unidade Sul
+  - 03 Dfr9WHrlXpe: "Penteado sofisticado com uma linda maquiagem clássica", Unidade Guararapes
+  - 04 DfkuJZMmrre: "Short Bob Assimétrico", Unidade Cocó
+  - 05 DfQEIJsGuI_: "Mechas douradas com nuances champanhe", Unidade Passaré
+  - 06 DfFgCvPFcnn: "Um toque de beleza" (cabelo e make), Unidade Cocó
+  - 07 DfE3ldzlSZr: "Leve e elegante para o seu dia", Unidade Guararapes
+  - 08 DepK8sOla2I: "Loiro Bege Iluminado, com nuances douradas e mel", Unidade Cocó
+  - 09 DekClS2FSNI: "Super blond em tons dourados mel", Unidade Maraponga
+  - 10 DeW5-CLlQz-: "Tradicional, clássico e muito elegante", Unidade Guararapes
+  - 11 Dd6K1AKlf1U: "Loiro bege iluminado com nuances mel", Cocó
+  - 12 Dd48uUilSgt: "Aquele clássico elegante", Unidade Cocó
+- Uso das fotos das clientes no site precisa do ok dos proprietários (as fotos já estão públicas no Instagram da casa).
+
+## Decisão de texto (2026-11-22)
+- O salão é majoritariamente feminino. A pedido, o site diz "atendimento exclusivo em todas as áreas" no lugar de "atendimento masculino em todas as áreas" (frase do linkbio), para não parecer um salão masculino.
