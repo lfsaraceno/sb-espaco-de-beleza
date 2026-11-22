@@ -58,6 +58,10 @@ a { color: inherit; }
 .big .n { font-style: italic; color: var(--rosa); }
 .citacao { margin: clamp(40px, 6vw, 72px) 0 0; }
 .citacao p { margin: 0; max-width: 22em;font-family: var(--serif); font-size: clamp(24px, 3.2vw, 42px); line-height: 1.22; }
+.citacao footer { margin-top: 14px; font-size: 13px; letter-spacing: .04em; color: var(--creme-2); }
+.citacao cite { font-style: normal; }
+.citacao cite::before { content: "— "; }
+.mini-logo:focus-visible { opacity: 1 !important; } /* o GSAP deixa opacity 0 inline durante a abertura */
 .citacao.menor p { font-size: clamp(22px, 2.6vw, 34px); font-style: italic; color: var(--rosa); }
 .fatos { margin-top: clamp(32px, 5vw, 56px); max-width: 34em; color: var(--creme-2); font-size: clamp(16px, 1.5vw, 19px); }
 .fatos p { margin: 0 0 8px; }

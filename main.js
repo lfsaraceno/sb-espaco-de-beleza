@@ -30,9 +30,11 @@
       if (noGL || !webglOK()) return reject(new Error('sem WebGL'));
       const s = document.createElement('script');
       s.src = 'assets/lirio3d.js';
-      const timer = setTimeout(() => reject(new Error('3D demorou')), 3000);
+      let late = false; // se o 3D chegar depois do prazo, o lírio desenhado já está na tela: ignora
+      const timer = setTimeout(() => { late = true; reject(new Error('3D demorou')); }, 3000);
       s.onload = () => {
         clearTimeout(timer);
+        if (late) return;
         try {
           root.classList.add('is-3d'); // antes do start: o canvas precisa ter tamanho
           resolve(window.Lirio3D.start(canvas, group));
@@ -83,7 +85,7 @@
 
   function scrollScenes() {
     gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.6 } })
-      .to('.marca', { yPercent: -60, autoAlpha: 0, ease: 'none' }, 0)
+      .to('.marca', { yPercent: -60, opacity: 0, ease: 'none' }, 0)
       .to('.hero-bloom', { scale: 1.25, opacity: 0.35, ease: 'none' }, 0)
       .to('.scroll-hint', { autoAlpha: 0, duration: 0.1 }, 0);
 
@@ -95,14 +97,14 @@
       onLeaveBack: () => gsap.to('.mini-logo', { opacity: 0, duration: 0.3 }),
     });
 
-    gsap.from('.historia .big', { yPercent: 30, autoAlpha: 0, duration: 1.4, ease: 'expo.out',
+    gsap.from('.historia .big', { yPercent: 30, opacity: 0, duration: 1.4, ease: 'expo.out',
       scrollTrigger: { trigger: '.historia', start: 'top 70%' } });
     gsap.utils.toArray('.historia .kicker, .historia .citacao, .historia .fatos').forEach((el) =>
-      gsap.from(el, { y: 40, autoAlpha: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 85%' } }));
+      gsap.from(el, { y: 40, opacity: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 85%' } }));
 
-    gsap.from('.unidades .kicker, .unidades h2, .unidades .sub', { y: 30, autoAlpha: 0, duration: 1, stagger: 0.1, ease: 'power3.out',
+    gsap.from('.unidades .kicker, .unidades h2, .unidades .sub', { y: 30, opacity: 0, duration: 1, stagger: 0.1, ease: 'power3.out',
       scrollTrigger: { trigger: '.unidades', start: 'top 75%' } });
-    gsap.from('.unidade', { y: 30, autoAlpha: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out',
+    gsap.from('.unidade', { y: 30, opacity: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out',
       scrollTrigger: { trigger: '.lista', start: 'top 85%' } });
   }
 })();

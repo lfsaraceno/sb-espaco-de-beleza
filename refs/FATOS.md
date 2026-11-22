@@ -40,3 +40,7 @@ Só o que está escrito nas fontes. Nada aqui é dedução, exceto onde marcado.
 - WhatsApp/telefone de cada unidade e canal de agendamento.
 - Lista de serviços (destaques citam mechas e unhas) e se mostra preço.
 - Fotos e vídeos em boa resolução.
+
+## Citações usadas no site (precisam de autorização da cliente)
+- "Chegar aos 20 anos de história não é sobre olhar no espelho e ver o tempo passar, é sobre olhar para trás e ver quantas vidas e sorrisos conseguimos transformar." — legenda do reel dos 20 anos (https://www.instagram.com/reel/DeH6CSjA4RK)
+- "Nós não mudamos porque algo acabou. Nós mudamos porque crescemos!" — legenda do post "Mudamos!" de 06/10/2026 (https://www.instagram.com/p/DeKIdZHFYP2/)

@@ -58,6 +58,17 @@ test('marca: title com "SB Espaço de Beleza" e "Belíssima" só como antigo nom
   usos.forEach((u) => assert.match(u, /antigo Espaço Belíssima/, u));
 });
 
+test('h1: nome acessível é "SB Espaço de Beleza"', () => {
+  const h1 = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)[1].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+  assert.equal(h1, 'SB Espaço de Beleza');
+});
+
+test('citações: cada blockquote diz de onde veio', () => {
+  const quotes = [...html.matchAll(/<blockquote[\s\S]*?<\/blockquote>/g)].map((m) => m[0]);
+  assert.ok(quotes.length >= 1);
+  quotes.forEach((q) => assert.match(q, /<cite>[^<]+<\/cite>/, q.slice(0, 80)));
+});
+
 test('sem JS: styles.css só esconde conteúdo sob .js', () => {
   const css = readFileSync(new URL('../styles.css', import.meta.url), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
   const rules = [...css.matchAll(/([^{}]+)\{([^}]*)\}/g)];
