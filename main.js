@@ -173,12 +173,12 @@
       .to('.hero-bloom', { scale: 1.25, opacity: 0.35, ease: 'none' }, 0)
       .to('.scroll-hint', { autoAlpha: 0, duration: 0.1 }, 0);
 
-    // o lírio vira o logo pequeno do topo quando a abertura sai
+    // o lírio vira o logo pequeno do topo quando a abertura sai; o botão do topo entra junto
     ScrollTrigger.create({
       trigger: '.hero', start: 'bottom 30%', end: 'max',
       toggleClass: { targets: '.topbar', className: 'solid' },
-      onEnter: () => gsap.to('.mini-logo', { opacity: 1, duration: 0.5 }),
-      onLeaveBack: () => gsap.to('.mini-logo', { opacity: 0, duration: 0.3 }),
+      onEnter: () => gsap.to('.mini-logo, .topbar .cta', { autoAlpha: 1, duration: 0.5 }),
+      onLeaveBack: () => gsap.to('.mini-logo, .topbar .cta', { autoAlpha: 0, duration: 0.3 }),
     });
 
     gsap.from('.historia .big', { yPercent: 30, opacity: 0, duration: 1.4, ease: 'expo.out',

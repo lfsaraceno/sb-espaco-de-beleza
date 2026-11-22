@@ -38,7 +38,7 @@ a { color: inherit; }
 .mini-logo { display: flex; align-items: center; gap: 10px; min-height: 44px; text-decoration: none; }
 .mini-logo svg { width: 36px; height: 36px; color: var(--creme); }
 .mini-logo span { font-family: var(--serif); font-size: 20px; letter-spacing: .02em; }
-.mini-logo:focus-visible, .scroll-hint:focus-visible, .hero-texto > :focus-within { opacity: 1 !important; } /* o GSAP deixa opacity 0 inline durante a abertura */
+.scroll-hint:focus-visible, .hero-texto > :focus-within { opacity: 1 !important; } /* o GSAP deixa opacity 0 inline durante a abertura */
 .cta { min-height: 44px; padding: 0 20px; font-size: 14px; }
 
 /* abertura: marca à direita, texto à esquerda (no celular, empilhado) */
@@ -183,6 +183,7 @@ a { color: inherit; }
 @media (max-width: 860px) { .rodape-grade { grid-template-columns: 1fr; gap: 36px; } }
 
 /* estados iniciais da animação: só quando o JS está ativo (sem JS, tudo aparece) */
-.js .hero .lirio, .js .marca .sb, .js .marca .nome, .js .hero-texto > *, .js .scroll-hint, .js .mini-logo { opacity: 0; }
+.js .hero .lirio, .js .marca .sb, .js .marca .nome, .js .hero-texto > *, .js .scroll-hint { opacity: 0; }
+.js .mini-logo, .js .topbar .cta { opacity: 0; visibility: hidden; } /* entram quando a abertura sai (main.js) */
 .js .marca .rule { transform: scaleY(0); }
 .js .hero-bloom { clip-path: circle(0% at 50% 42%); }
