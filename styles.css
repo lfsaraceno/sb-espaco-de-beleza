@@ -23,6 +23,9 @@ a { color: inherit; }
 .topbar { position: fixed; z-index: 40; inset: 0 0 auto 0; display: flex; justify-content: space-between; align-items: center;
   padding: calc(14px + env(safe-area-inset-top, 0px)) clamp(16px, 4vw, 48px) 14px; pointer-events: none; }
 .topbar > * { pointer-events: auto; }
+.topbar::before { content: ""; position: absolute; inset: 0 0 -28px; z-index: -1; pointer-events: none; opacity: 0; transition: opacity .4s;
+  background: linear-gradient(rgba(20, 4, 6, .94) 55%, rgba(20, 4, 6, 0)); }
+.topbar.solid::before, html:not(.js) .topbar::before { opacity: 1; }
 .mini-logo { display: flex; align-items: center; gap: 10px; min-height: 44px; text-decoration: none; }
 .mini-logo svg { width: 36px; height: 36px; color: var(--creme); }
 .mini-logo span { font-family: var(--serif); font-size: 20px; letter-spacing: .02em; }

@@ -89,7 +89,8 @@
 
     // o lírio vira o logo pequeno do topo quando a abertura sai
     ScrollTrigger.create({
-      trigger: '.hero', start: 'bottom 30%',
+      trigger: '.hero', start: 'bottom 30%', end: 'max',
+      toggleClass: { targets: '.topbar', className: 'solid' },
       onEnter: () => gsap.to('.mini-logo', { opacity: 1, duration: 0.5 }),
       onLeaveBack: () => gsap.to('.mini-logo', { opacity: 0, duration: 0.3 }),
     });
