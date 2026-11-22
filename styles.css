@@ -56,8 +56,8 @@ a { color: inherit; }
 .kicker { margin: 0 0 16px; font-size: 12px; letter-spacing: .28em; text-transform: uppercase; color: var(--creme-2); }
 .big { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(80px, 17vw, 230px); line-height: .9; }
 .big .n { font-style: italic; color: var(--rosa); }
-.citacao { margin: clamp(40px, 6vw, 72px) 0 0; max-width: 24em; }
-.citacao p { margin: 0; font-family: var(--serif); font-size: clamp(24px, 3.2vw, 42px); line-height: 1.22; }
+.citacao { margin: clamp(40px, 6vw, 72px) 0 0; }
+.citacao p { margin: 0; max-width: 22em;font-family: var(--serif); font-size: clamp(24px, 3.2vw, 42px); line-height: 1.22; }
 .citacao.menor p { font-size: clamp(22px, 2.6vw, 34px); font-style: italic; color: var(--rosa); }
 .fatos { margin-top: clamp(32px, 5vw, 56px); max-width: 34em; color: var(--creme-2); font-size: clamp(16px, 1.5vw, 19px); }
 .fatos p { margin: 0 0 8px; }
