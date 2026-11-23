@@ -113,17 +113,16 @@ a { color: inherit; }
 .carrossel-ctrl { display: none; }
 .trabalhos-mais { text-align: center; margin: 24px 0 0; }
 
-/* carrossel em órbita (main.js liga com .vivo): os cards andam numa elipse vista de cima;
-   na frente, grande e nítido; atrás, pequeno e desfocado. Posição e filtro vêm do main.js a cada quadro */
-.carrossel.vivo .palco { position: relative; display: block; overflow: visible; margin-top: 48px; padding: 0; touch-action: pan-y; user-select: none; }
-.carrossel.vivo .slide { position: absolute; left: 50%; top: 0; width: var(--w, 300px); cursor: pointer; will-change: transform, filter; }
+/* carrossel em profundidade (main.js liga com .vivo) */
+.carrossel.vivo { --w: clamp(220px, 26vw, 350px); }
+.carrossel.vivo .palco { position: relative; display: block; overflow: visible; height: calc(var(--w) * 1.25 + 130px); margin-top: 56px; padding: 0; perspective: 1600px; touch-action: pan-y; }
+.carrossel.vivo .slide { position: absolute; top: 0; left: 50%; width: var(--w); margin-left: calc(var(--w) / -2); cursor: pointer; z-index: calc(20 - var(--ad, 0));
+  transform: translateX(calc(var(--d, 0) * var(--w) * .64)) translateZ(calc(var(--ad, 0) * -230px)) rotateY(calc(var(--d, 0) * -9deg));
+  filter: blur(calc(var(--ad, 0) * 1.8px)) brightness(calc(1 - var(--ad, 0) * .2));
+  opacity: clamp(0, calc(3.6 - var(--ad, 0)), 1);
+  transition: transform 1s cubic-bezier(.2, .8, .2, 1), filter 1s, opacity 1s; }
 .carrossel.vivo .slide.ativo { cursor: default; }
-.carrossel.vivo .moldura { padding: 12px; }
-.carrossel.vivo .moldura img { pointer-events: none; }
-.carrossel.vivo .post { -webkit-user-drag: none; }
-/* legenda só no card da frente; os outros ficam só com a foto na moldura */
-.carrossel.vivo figcaption { max-height: 160px; padding: 14px 4px 2px; overflow: hidden; transition: max-height .6s, padding .6s, opacity .5s .1s; }
-.js .carrossel.vivo .slide:not(.ativo) figcaption { max-height: 0; padding-block: 0; opacity: 0; transition: max-height .4s, padding .4s, opacity .2s; }
+.js .carrossel.vivo .slide:not(.ativo) figcaption { opacity: 0; }
 .carrossel.vivo .carrossel-ctrl { display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 8px; }
 .seta { display: grid; place-items: center; width: 48px; height: 48px; padding: 0; border: 1px solid rgba(243, 233, 225, .35); border-radius: 50%;
   background: none; color: var(--creme); cursor: pointer; transition: border-color .2s, background-color .2s; }
@@ -134,6 +133,7 @@ a { color: inherit; }
 .pausa { min-height: 44px; margin-left: 8px; padding: 0 4px; border: 0; background: none; color: var(--creme-2); font: inherit; font-size: 14px; cursor: pointer;
   text-decoration: underline; text-decoration-color: var(--linha); text-underline-offset: 6px; }
 .pausa:hover { color: var(--creme); }
+@media (max-width: 720px) { .carrossel.vivo .slide { transform: translateX(calc(var(--d, 0) * var(--w) * .5)) translateZ(calc(var(--ad, 0) * -260px)) rotateY(calc(var(--d, 0) * -9deg)); } }
 
 /* unidades */
 .unidades { outline: none; }

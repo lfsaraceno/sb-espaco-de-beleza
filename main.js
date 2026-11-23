@@ -105,55 +105,29 @@
       .to('.scroll-hint', { opacity: 1, duration: 0.6 }, '-=0.4');
   }
 
-  // fotos giram em órbita: na frente, nítida e grande; atrás, pequena e desfocada; troca sozinho a cada 3 s
+  // fotos vêm de trás, ficam nítidas no centro e voltam; troca sozinho a cada 3 s
   function carrossel() {
-    const box = q('.carrossel'), palco = box.querySelector('.palco');
+    const box = q('.carrossel');
     const slides = [...box.querySelectorAll('.slide')], n = slides.length;
     const atual = box.querySelector('.atual'), pausa = box.querySelector('.pausa');
     // roda sempre que está na tela; só o botão "Pausar" para (é o controle de pausa da WCAG 2.2.2)
-    let i = 0, timer, pausado = false, visivel = false, x0 = null, arrastou = false, rx = 0, ry = 0;
-    const giro = { rot: 0 }; // posição contínua da órbita, em cards
+    let i = 0, timer, pausado = false, visivel = false, x0 = null, arrastou = false;
     box.classList.add('vivo');
 
-    // tamanho do card e da elipse a partir da largura; a moldura é 4:5 mais 12px de borda
-    const medir = () => {
-      const W = palco.clientWidth, celular = W < 720;
-      const w = Math.round(Math.min(Math.max(celular ? W * 0.58 : W * 0.22, 190), 300));
-      const F = w * 1.25 + 24, legenda = 118;
-      rx = Math.min(W * 0.36, 470);
-      ry = rx * 0.2;
-      const cy = 8 + Math.max(F / 2 - ry, ry + 0.25 * F);
-      palco.style.setProperty('--w', w + 'px');
-      palco.style.height = cy + ry + F / 2 + legenda + 'px';
-      slides.forEach((s) => { s.style.marginLeft = -w / 2 + 'px'; s.style.top = cy - F / 2 + 'px'; s.style.transformOrigin = `50% ${F / 2}px`; });
-      pintar();
-    };
-    // desenha por quadro a partir do ângulo, então o card anda em arco e não em linha reta
-    const pintar = () => {
+    const mostrar = (k) => {
+      i = (k + n) % n;
       slides.forEach((s, j) => {
-        const th = ((j - giro.rot) / n) * Math.PI * 2;
-        const c = (Math.cos(th) + 1) / 2; // 1 na frente, 0 atrás
-        s.style.transform = `translate(${Math.sin(th) * rx}px, ${Math.cos(th) * ry}px) scale(${0.5 + 0.5 * c ** 1.4})`;
-        s.style.zIndex = Math.round(c * 100);
-        s.style.filter = `blur(${((1 - c) * 3.2).toFixed(2)}px) brightness(${(0.38 + 0.62 * c).toFixed(3)})`;
-      });
-    };
-    const marcar = () => {
-      slides.forEach((s, j) => {
-        s.classList.toggle('ativo', j === i);
-        s.setAttribute('aria-hidden', String(j !== i));
+        let d = j - i;
+        if (d > n / 2) d -= n;
+        if (d < -n / 2) d += n;
+        s.style.setProperty('--d', d);
+        s.style.setProperty('--ad', Math.abs(d));
+        s.classList.toggle('ativo', d === 0);
+        s.setAttribute('aria-hidden', String(d !== 0));
         const a = s.querySelector('a'); // HTML antigo em cache pode vir sem o link
-        if (a) a.tabIndex = j === i ? 0 : -1; // Tab só alcança o post da frente
+        if (a) a.tabIndex = d === 0 ? 0 : -1; // Tab só alcança o post do centro
       });
       atual.textContent = String(i + 1);
-    };
-    const mostrar = (k) => {
-      let d = (((k - i) % n) + n) % n;
-      if (d > n / 2) d -= n; // gira pelo caminho mais curto
-      if (!d) return;
-      i = (i + d + n) % n;
-      marcar();
-      gsap.to(giro, { rot: Math.round(giro.rot) + d, duration: 0.9 + Math.abs(d) * 0.12, ease: 'power3.inOut', onUpdate: pintar, overwrite: true });
     };
     const tocar = () => {
       clearInterval(timer);
@@ -163,7 +137,7 @@
 
     box.addEventListener('click', (e) => {
       const s = e.target.closest('.slide');
-      // card do lado ou arrasto: só gira o carrossel; o post abre só no card da frente
+      // card do lado ou arrasto: só gira o carrossel; o post abre só no card do centro
       if (arrastou || (s && !s.classList.contains('ativo'))) e.preventDefault();
       if (arrastou) return;
       const b = e.target.closest('[data-ir]');
@@ -181,6 +155,7 @@
       tocar();
     });
     // arrastar para os lados no celular
+    const palco = box.querySelector('.palco');
     palco.addEventListener('pointerdown', (e) => { x0 = e.clientX; arrastou = false; });
     palco.addEventListener('pointerup', (e) => {
       if (x0 === null) return;
@@ -189,9 +164,7 @@
       if (Math.abs(dx) > 40) { arrastou = true; ir(i + (dx < 0 ? 1 : -1)); setTimeout(() => { arrastou = false; }, 0); }
     });
     new IntersectionObserver(([e]) => { visivel = e.isIntersecting; tocar(); }).observe(box);
-    addEventListener('resize', medir);
-    marcar();
-    medir();
+    mostrar(0);
   }
 
   function scrollScenes() {
